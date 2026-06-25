@@ -1,101 +1,54 @@
-# 🚀 Projeto de Otimização
+# Projeto de Otimização Linear
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python)
-![Flask](https://img.shields.io/badge/Flask-Framework-black?style=for-the-badge&logo=flask)
-![License](https://img.shields.io/badge/Status-Em%20Desenvolvimento-success?style=for-the-badge)
+Aplicação web desenvolvida em Python com Flask para resolução de problemas de Programação Linear. O sistema permite montar a função objetivo, inserir restrições, calcular a solução ótima, visualizar o preço sombra e realizar análise de sensibilidade.
 
----
+## Funcionalidades
 
-## 🧩 Descrição
+- Cadastro da quantidade de variáveis
+- Cadastro da quantidade de restrições
+- Montagem da função objetivo
+- Inserção dos coeficientes das restrições
+- Escolha dos operadores das restrições
+- Cálculo da solução ótima
+- Exibição dos valores das variáveis
+- Cálculo do valor da função objetivo
+- Cálculo do preço sombra
+- Análise de sensibilidade
+- Possibilidade de alterar restrições mantendo os dados preenchidos
+- Interface web moderna com layout responsivo
 
-Este é um **projeto acadêmico** desenvolvido para a disciplina de **Otimização**.  
-A aplicação web permite **resolver problemas de programação linear**, com **função objetivo** e **restrições definidas pelo usuário**, através de uma interface moderna construída com **Flask** e **Bootstrap**.
+## Tecnologias utilizadas
 
----
+- Python
+- Flask
+- SciPy
+- HTML
+- CSS
+- JavaScript
 
-## ⚙️ Funcionalidades
+## Estrutura do projeto
 
-✅ Inserção da **função objetivo**  
-✅ Definição das **restrições** (≤ ou ≥)  
-✅ Visualização dos **resultados da otimização**  
-✅ **Análise de viabilidade** após alterações nas restrições
-
----
-
-## 🧠 Tecnologias Utilizadas
-
-| Tecnologia                    | Descrição                                           |
-| ----------------------------- | --------------------------------------------------- |
-| 🐍 **Python 3**               | Linguagem principal do projeto                      |
-| 🌐 **Flask**                  | Framework web para criação da aplicação             |
-| 🧩 **Jinja2**                 | Template engine para renderização das páginas       |
-| 🎨 **HTML / CSS / Bootstrap** | Criação e estilização da interface                  |
-| 📊 **SciPy – Linprog**        | Função usada para resolver o problema de otimização |
-
----
-
-## 🏗️ Estrutura do Projeto
-
-```
-Projeto-Otimizacao/
-│
+```text
+Projeto-de-otimizacao/
 ├── app/
-│   ├── templates/          # Arquivos HTML (interface)
-│   ├── utils/              # Funções auxiliares
-│   └── routes.py           # Rotas Flask
-│
-├── config.py               # Configurações globais
-├── run.py                  # Arquivo principal da aplicação
-├── requirements.txt        # Dependências do projeto
-└── README.md
-```
-
----
-
-## 🧪 Como Executar
-
-### 1️⃣ Clone o repositório
-
-```bash
-git clone https://github.com/SEU_USUARIO/Projeto-Otimizacao.git
-cd Projeto-Otimizacao
-```
-
-### 2️⃣ Crie e ative o ambiente virtual
-
-```bash
-python -m venv venv
-venv\Scripts\activate   # Windows
-# ou
-source venv/bin/activate  # Linux/Mac
-```
-
-### 3️⃣ Instale as dependências
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4️⃣ Execute a aplicação
-
-```bash
-python run.py
-```
-
-### 5️⃣ Acesse no navegador
-
-👉 [http://localhost:5000](http://localhost:5000)
-
----
-
-## 🧭 Exemplo de Uso
-
-> O usuário escolhe o número de variáveis e restrições, define a função objetivo e as condições, e o sistema retorna a solução ótima e a análise de sensibilidade visualmente organizada.
-
----
-
-## 📸 Interface (Preview)
-
-_(adicione aqui prints da sua tela `form.html` e `result.html` quando quiser mostrar o visual final)_
-
----
+│   ├── static/
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   └── js/
+│   │       └── particles.js
+│   ├── templates/
+│   │   ├── form.html
+│   │   ├── result.html
+│   │   └── post_optimization.html
+│   ├── utils/
+│   │   ├── __init__.py
+│   │   ├── form_utils.py
+│   │   ├── post_optimization_utils.py
+│   │   └── shadow_price_process.py
+│   ├── __init__.py
+│   └── routes.py
+├── .gitignore
+├── config.py
+├── README.md
+├── requirements.txt
+└── run.py

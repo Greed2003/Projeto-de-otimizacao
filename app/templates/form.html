@@ -91,6 +91,7 @@
                                 step="any" 
                                 name="variable_{{ i }}" 
                                 placeholder="Coef."
+                                value="{{ objective_values[i] if objective_values|length > i else '' }}"
                                 required
                             >
                             <span>{{ labels[i] }}</span>
@@ -127,6 +128,7 @@
                                         step="any" 
                                         name="restriction_{{ i }}_{{ j }}" 
                                         placeholder="Coef."
+                                        value="{{ restrictions_values[i][j] if restrictions_values|length > i and restrictions_values[i]|length > j else '' }}"
                                         required
                                     >
                                 </div>
@@ -135,8 +137,19 @@
                             <div class="input-group small">
                                 <label>Operador</label>
                                 <select name="operator_{{ i }}" required>
-                                    <option value="&lt;=">≤</option>
-                                    <option value="&gt;=">≥</option>
+                                    <option 
+                                        value="&lt;="
+                                        {% if restrictions_operator_values|length > i and restrictions_operator_values[i] == '<=' %}selected{% endif %}
+                                    >
+                                        ≤
+                                    </option>
+
+                                    <option 
+                                        value="&gt;="
+                                        {% if restrictions_operator_values|length > i and restrictions_operator_values[i] == '>=' %}selected{% endif %}
+                                    >
+                                        ≥
+                                    </option>
                                 </select>
                             </div>
 
@@ -147,6 +160,7 @@
                                     step="any" 
                                     name="value_right_{{ i }}" 
                                     placeholder="Valor"
+                                    value="{{ restrictions_right_values[i] if restrictions_right_values|length > i else '' }}"
                                     required
                                 >
                             </div>
@@ -161,7 +175,7 @@
                 </button>
 
                 <a href="{{ url_for('reset') }}" class="btn btn-secondary">
-                    Resetar
+                    Resetar tudo
                 </a>
             </div>
 
