@@ -74,14 +74,32 @@
             <span>02</span>
             <div>
                 <h2>Função objetivo</h2>
-                <p>Informe os coeficientes da função que será maximizada.</p>
+                <p>Escolha se deseja maximizar ou minimizar e informe os coeficientes.</p>
             </div>
         </div>
 
         <form action="{{ url_for('process') }}" method="POST">
 
+            <div class="input-group" style="margin-bottom: 18px;">
+                <label for="objective_type">Tipo de otimização</label>
+                <select name="objective_type" id="objective_type" required>
+                    <option value="max" {% if objective_type == 'max' %}selected{% endif %}>
+                        Maximizar
+                    </option>
+                    <option value="min" {% if objective_type == 'min' %}selected{% endif %}>
+                        Minimizar
+                    </option>
+                </select>
+            </div>
+
             <div class="formula-box">
-                <strong>Z =</strong>
+                <strong>
+                    {% if objective_type == 'min' %}
+                        Min Z =
+                    {% else %}
+                        Max Z =
+                    {% endif %}
+                </strong>
 
                 <div class="formula-items">
                     {% for i in range(num_variables) %}

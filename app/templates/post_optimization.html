@@ -22,7 +22,13 @@
         </div>
 
         <div class="hero-card result-highlight">
-            <span>Função Objetivo</span>
+            <span>
+                {% if objective_type == 'min' %}
+                    Minimização
+                {% else %}
+                    Maximização
+                {% endif %}
+            </span>
             <strong>R$ {{ objective_fuction | round(2) }}</strong>
             <small>Resultado após alteração</small>
         </div>
@@ -51,7 +57,13 @@
                 <span>01</span>
                 <div>
                     <h2>Função objetivo</h2>
-                    <p>Valor recalculado do problema.</p>
+                    <p>
+                        {% if objective_type == 'min' %}
+                            Valor mínimo recalculado do problema.
+                        {% else %}
+                            Valor máximo recalculado do problema.
+                        {% endif %}
+                    </p>
                 </div>
             </div>
 

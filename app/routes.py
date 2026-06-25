@@ -13,6 +13,7 @@ def home():
         num_variables=0,
         num_restrictions=0,
         labels=[],
+        objective_type='max',
         objective_values=[],
         restrictions_values=[],
         restrictions_right_values=[],
@@ -46,6 +47,7 @@ def initiate_simplex():
         labels = [chr(65 + i) for i in range(num_variables)]
 
     form_data = session.get('form_data', {})
+    objective_type = session.get('objective_type', form_data.get('objective_type', 'max'))
 
     return render_template(
         'form.html',
@@ -53,6 +55,7 @@ def initiate_simplex():
         num_restrictions=num_restrictions if num_restrictions else 0,
         labels=labels,
         operators=operators,
+        objective_type=objective_type,
         objective_values=form_data.get('objective_values', []),
         restrictions_values=form_data.get('restrictions_values', []),
         restrictions_right_values=form_data.get('restrictions_right_values', []),
@@ -63,6 +66,9 @@ def initiate_simplex():
 @app.route('/process', methods=['GET', 'POST'])
 def process():
     if request.method == 'POST':
+        objective_type = request.form.get('objective_type', 'max')
+        session['objective_type'] = objective_type
+
         restrictions_right_values = dict_to_list({
             key: float(value)
             for key, value in request.form.items()
@@ -95,13 +101,17 @@ def process():
         }
 
         session['form_data'] = {
+            'objective_type': objective_type,
             'objective_values': objective_values,
             'restrictions_values': restrictions_values,
             'restrictions_right_values': restrictions_right_values,
             'restrictions_operator_values': restrictions_operator_values
         }
 
-        variables_list = [-value for value in objective_values]
+        if objective_type == 'max':
+            variables_list = [-value for value in objective_values]
+        else:
+            variables_list = objective_values
 
         calculation_restrictions_list = [row[:] for row in restrictions_values]
         calculation_restrictions_right_list = restrictions_right_values[:]
@@ -122,6 +132,10 @@ def process():
         restrictions_operators = session.get('restrictions_operators', {})
         variables_list = session.get('variables_list', [])
         calculation_restrictions_list = session.get('restrictions_list', [])
+        objective_type = session.get('objective_type', 'max')
+
+        if not variables_list or not calculation_restrictions_list:
+            return redirect(url_for('home'))
 
         num_variables = len(variables_list)
         num_restrictions = len(calculation_restrictions_right_list)
@@ -142,14 +156,20 @@ def process():
         calculation_restrictions_right_list
     )
 
+    if objective_type == 'max':
+        objective_fuction = -result.fun
+    else:
+        objective_fuction = result.fun
+
     return render_template(
         'result.html',
-        objective_fuction=-result.fun,
+        objective_fuction=objective_fuction,
         variables_results=result.x,
         shadow_price=shadow_price,
         labels=labels,
         num_variables=num_variables,
         num_restrictions=num_restrictions,
+        objective_type=objective_type
     )
 
 
@@ -164,6 +184,10 @@ def sensitivity_analysis():
     variables_list = session.get('variables_list')
     restrictions_list = session.get('restrictions_list')
     restrictions_right_list = session.get('restrictions_right_list')
+    objective_type = session.get('objective_type', 'max')
+
+    if not variables_list or not restrictions_list or not restrictions_right_list:
+        return redirect(url_for('home'))
 
     new_restrictions_right_list = [
         a + b
@@ -180,14 +204,20 @@ def sensitivity_analysis():
         method="simplex"
     )
 
+    if objective_type == 'max':
+        objective_fuction = -new_result.fun
+    else:
+        objective_fuction = new_result.fun
+
     return render_template(
         'post_optimization.html',
-        objective_fuction=-new_result.fun,
+        objective_fuction=objective_fuction,
         variables_results=new_result.x,
         result=new_result.status,
         num_variables=num_variables,
         num_restrictions=len(restrictions_right_list),
-        labels=labels
+        labels=labels,
+        objective_type=objective_type
     )
 
 
