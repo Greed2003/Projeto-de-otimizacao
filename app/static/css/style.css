@@ -1,0 +1,136 @@
+/* ====== ESTILO COMPLETO COM FUNDO INTERATIVO ====== */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    color: #00e676;
+    /* Texto verde igual ao botão */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 60px;
+    overflow: hidden;
+    background: radial-gradient(circle at 20% 30%, #0e1218, #090c10 80%);
+    position: relative;
+}
+
+/* ====== ANIMAÇÃO DE FUNDO COM BOLINHAS ====== */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle at 50% 50%, #0b0e12, #0b0e12);
+    cursor: none;
+}
+
+/* ====== CONTAINERS E CARDS ====== */
+.container {
+    max-width: 900px;
+    width: 90%;
+    position: relative;
+    z-index: 2;
+}
+
+.card {
+    background: rgba(21, 26, 33, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.card-title {
+    color: #00e676;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* ====== FORMULÁRIOS ====== */
+.form-label {
+    font-weight: 500;
+    color: #00e676;
+}
+
+.form-control,
+.form-select {
+    background-color: #0e1218;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    color: #00e676;
+    padding: 0.4rem 0.6rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #00e676;
+    box-shadow: 0 0 8px rgba(0, 230, 118, 0.5);
+    outline: none;
+}
+
+/* ====== BOTÕES ====== */
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.25s ease;
+}
+
+.btn-success {
+    background: linear-gradient(90deg, #00e676, #00c853);
+    border: none;
+    color: #0b0e12;
+}
+
+.btn-success:hover {
+    background: linear-gradient(90deg, #00ff7f, #00e676);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #00e676;
+}
+
+.btn-secondary:hover {
+    background: #2c333b;
+    border-color: #3d444d;
+}
+
+/* ====== LISTAS ====== */
+.list-group-item {
+    background-color: #0e1218;
+    border: 1px solid #252a32;
+    color: #00e676;
+}
+
+/* ====== ANIMAÇÃO SUAVE ====== */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
