@@ -1,11 +1,12 @@
 # Projeto de Otimização Linear
 
-Aplicação web desenvolvida em Python com Flask para resolução de problemas de Programação Linear. O sistema permite montar a função objetivo, inserir restrições, calcular a solução ótima, visualizar o preço sombra e realizar análise de sensibilidade.
+Aplicação web desenvolvida em Python com Flask para resolução de problemas de Programação Linear. O sistema permite montar a função objetivo, inserir restrições, escolher entre maximização ou minimização, calcular a solução ótima, visualizar o preço sombra e realizar análise de sensibilidade.
 
 ## Funcionalidades
 
 - Cadastro da quantidade de variáveis
 - Cadastro da quantidade de restrições
+- Escolha entre maximizar ou minimizar
 - Montagem da função objetivo
 - Inserção dos coeficientes das restrições
 - Escolha dos operadores das restrições
@@ -15,6 +16,7 @@ Aplicação web desenvolvida em Python com Flask para resolução de problemas d
 - Cálculo do preço sombra
 - Análise de sensibilidade
 - Alteração das restrições mantendo os dados já preenchidos
+- Reset completo do problema
 - Interface web moderna e responsiva
 
 ## Tecnologias utilizadas
@@ -135,34 +137,37 @@ http://127.0.0.1:5000
 1. Escolha a quantidade de variáveis.
 2. Escolha a quantidade de restrições.
 3. Clique em **Montar modelo**.
-4. Preencha os coeficientes da função objetivo.
-5. Preencha os coeficientes das restrições.
-6. Escolha o operador de cada restrição.
-7. Informe o lado direito de cada restrição.
-8. Clique em **Otimizar modelo**.
-9. Veja o valor ótimo da função objetivo.
-10. Veja os valores encontrados para cada variável.
-11. Veja o preço sombra de cada restrição.
-12. Use a análise de sensibilidade para testar alterações no lado direito das restrições.
-13. Caso necessário, clique em **Alterar restrições** para voltar ao formulário mantendo os dados preenchidos.
-14. Clique em **Resetar tudo** para limpar os dados e iniciar um novo problema.
+4. Escolha o tipo de otimização: **Maximizar** ou **Minimizar**.
+5. Preencha os coeficientes da função objetivo.
+6. Preencha os coeficientes das restrições.
+7. Escolha o operador de cada restrição.
+8. Informe o lado direito de cada restrição.
+9. Clique em **Otimizar modelo**.
+10. Veja o valor ótimo da função objetivo.
+11. Veja os valores encontrados para cada variável.
+12. Veja o preço sombra de cada restrição.
+13. Use a análise de sensibilidade para testar alterações no lado direito das restrições.
+14. Caso necessário, clique em **Alterar restrições** para voltar ao formulário mantendo os dados preenchidos.
+15. Clique em **Resetar tudo** para limpar os dados e iniciar um novo problema.
 
-## Exemplo de teste
+## Exemplos de teste
 
-### Função objetivo
+### Exemplo de maximização
+
+Função objetivo:
 
 ```text
-Z = 40A + 30B
+Max Z = 40A + 30B
 ```
 
-Preenchimento:
+Preenchimento da função objetivo:
 
 ```text
 A = 40
 B = 30
 ```
 
-### Restrições
+Restrições:
 
 ```text
 A + B ≤ 100
@@ -170,7 +175,7 @@ A + B ≤ 100
 A + 3B ≤ 180
 ```
 
-Preenchimento:
+Preenchimento das restrições:
 
 ```text
 Restrição 1:
@@ -192,12 +197,58 @@ Operador = ≤
 Lado direito = 180
 ```
 
-### Resultado esperado aproximado
+Resultado esperado aproximado:
 
 ```text
 A = 48
 B = 44
 Z = 3240
+```
+
+### Exemplo de minimização
+
+Função objetivo:
+
+```text
+Min Z = 8A + 6B
+```
+
+Preenchimento da função objetivo:
+
+```text
+A = 8
+B = 6
+```
+
+Restrições:
+
+```text
+2A + B ≥ 10
+A + 3B ≥ 12
+```
+
+Preenchimento das restrições:
+
+```text
+Restrição 1:
+A = 2
+B = 1
+Operador = ≥
+Lado direito = 10
+
+Restrição 2:
+A = 1
+B = 3
+Operador = ≥
+Lado direito = 12
+```
+
+Resultado esperado aproximado:
+
+```text
+A = 3.6
+B = 2.8
+Z = 45.6
 ```
 
 ## Telas do sistema
@@ -208,10 +259,21 @@ O projeto possui três telas principais:
 
 Tela utilizada para escolher a quantidade de variáveis e restrições do problema.
 
+### Tela de montagem do modelo
+
+Tela utilizada para:
+
+- Escolher entre maximização ou minimização
+- Preencher a função objetivo
+- Preencher as restrições
+- Escolher os operadores
+- Informar os lados direitos das restrições
+
 ### Tela de resultado
 
 Tela que exibe:
 
+- Tipo de otimização escolhido
 - Valor da função objetivo
 - Valores das variáveis
 - Preço sombra
@@ -224,10 +286,12 @@ Tela que exibe o novo resultado após alterações feitas na análise de sensibi
 ## Observações
 
 - O projeto utiliza o método Simplex por meio da biblioteca SciPy.
-- O sistema foi desenvolvido para problemas de maximização.
+- O sistema permite resolver problemas de maximização e minimização em Programação Linear.
 - As variáveis são representadas automaticamente por letras, como A, B, C e D.
 - O botão **Alterar restrições** permite voltar ao formulário sem apagar os dados já preenchidos.
 - O botão **Resetar tudo** limpa a sessão e retorna para a tela inicial.
+- Para problemas de maximização, o sistema converte internamente a função objetivo para o formato utilizado pelo método de otimização.
+- Para problemas de minimização, o sistema utiliza os coeficientes informados diretamente na função objetivo.
 
 ## Comandos Git úteis
 
